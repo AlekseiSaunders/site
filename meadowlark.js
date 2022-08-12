@@ -18,7 +18,8 @@ app.get('/', (request, response) => {
 
 // create About route
 app.get('/about', (request, response) => {
-  response.render('about');
+  const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+  response.render('about', { fortune: randomFortune });
 });
 
 // custom 404 page
@@ -35,3 +36,11 @@ app.use((error, request, response, next) => {
 });
 
 app.listen(PORT, () => console.log(`Server listening on PORT: ${PORT}`));
+
+const fortunes = [
+  'Conquer your fears or they will conquer you',
+  'Rivers need springs',
+  'Do not fear what you do not know',
+  'You will have a pleasant surprise',
+  'Whenver possible, keep it simple',
+];
