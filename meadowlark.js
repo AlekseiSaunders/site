@@ -3,6 +3,18 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3300;
 
+// create root route
+app.get('/', (request, response) => {
+  response.type('text/plain');
+  response.send('Meadowlark Travel');
+});
+
+// create About route
+app.get('/about', (request, response) => {
+  response.type('text/plain');
+  response.send('About Meadowlark Travel');
+});
+
 // custom 404 page
 app.use((request, response) => {
   response.type('text/plain');
