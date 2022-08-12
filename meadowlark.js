@@ -1,12 +1,12 @@
 const express = require('express');
-const expressHandlebars = require('express-handlebars');
+const { engine } = require('express-handlebars');
 
 const app = express();
 const PORT = process.env.PORT || 3300;
 
 // configure Handlebars as view engine
-app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
+app.engine('hbs', engine({ defaultLayout: 'main', extname: '.hbs' }));
+app.set('view engine', 'hbs');
 
 // create root route
 app.get('/', (request, response) => {
