@@ -8,6 +8,9 @@ const PORT = process.env.PORT || 3300;
 app.engine('hbs', engine({ defaultLayout: 'main', extname: '.hbs' }));
 app.set('view engine', 'hbs');
 
+// configure public to serve static files
+app.use(express.static(__dirname + '/public'));
+
 // create root route
 app.get('/', (request, response) => {
   response.render('home');
