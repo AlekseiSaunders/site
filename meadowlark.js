@@ -11,27 +11,27 @@ app.set('view engine', 'handlebars');
 // create root route
 app.get('/', (request, response) => {
   response.type('text/plain');
-  response.send('Meadowlark Travel');
+  response.render('home');
 });
 
 // create About route
 app.get('/about', (request, response) => {
   response.type('text/plain');
-  response.send('About Meadowlark Travel');
+  response.render('about');
 });
 
 // custom 404 page
 app.use((request, response) => {
   response.type('text/plain');
   response.status(404);
-  response.send('404 - Not Found');
+  response.render('404');
 });
 
 // custom 500 page
 app.use((request, response) => {
   response.type('text/plain');
   response.status(500);
-  response.send('500 - Server Error');
+  response.render('500');
 });
 
 app.listen(PORT, () => console.log(`Server listening on PORT: ${PORT}`));
