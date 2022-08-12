@@ -10,26 +10,23 @@ app.set('view engine', 'hbs');
 
 // create root route
 app.get('/', (request, response) => {
-  response.type('text/plain');
   response.render('home');
 });
 
 // create About route
 app.get('/about', (request, response) => {
-  response.type('text/plain');
   response.render('about');
 });
 
 // custom 404 page
 app.use((request, response) => {
-  response.type('text/plain');
   response.status(404);
   response.render('404');
 });
 
 // custom 500 page
-app.use((request, response) => {
-  response.type('text/plain');
+app.use((error, request, response, next) => {
+  console.error(error.message);
   response.status(500);
   response.render('500');
 });
