@@ -1,6 +1,7 @@
 const express = require('express');
 const { engine } = require('express-handlebars');
-const {getFortune} = require('./lib/fortune');
+const { getFortune } = require('./lib/fortune');
+const handlers = require('./lib/handlers');
 
 const app = express();
 const PORT = process.env.PORT || 3300;
@@ -13,26 +14,15 @@ app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));
 
 // create root route
-app.get('/', (request, response) => {
-  response.render('home');
-});
+app.get('/', handlers.home);
 
 // create About route
-app.get('/about', (request, response) => {
-  response.render('about', { fortune: getFortune() });
-});
+app.get('/about', handlers.about);
 
 // custom 404 page
-app.use((request, response) => {
-  response.status(404);
-  response.render('404');
-});
+app.use(handlers.notFound);
 
 // custom 500 page
-app.use((error, request, response, next) => {
-  console.error(error.message);
-  response.status(500);
-  response.render('500');
-});
+app.use(handlers.serverError);
 
 app.listen(PORT, () => console.log(`Server listening on PORT: ${PORT}`));
