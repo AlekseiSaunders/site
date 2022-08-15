@@ -25,4 +25,11 @@ app.use(handlers.notFound);
 // custom 500 page
 app.use(handlers.serverError);
 
-app.listen(PORT, () => console.log(`Server listening on PORT: ${PORT}`));
+// allow app to be required as module for testing with puppeteer
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server listening on PORT: ${PORT}`);
+  });
+} else {
+  module.exports = app;
+}
