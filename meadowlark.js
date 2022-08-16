@@ -6,7 +6,20 @@ const app = express();
 const PORT = process.env.PORT || 3300;
 
 // configure Handlebars as view engine
-app.engine('hbs', engine({ defaultLayout: 'main', extname: '.hbs' }));
+app.engine(
+  'hbs',
+  engine({
+    defaultLayout: 'main',
+    extname: '.hbs',
+    helpers: {
+      section: function (name, options) {
+        if (!this._sections) this._sections = {};
+        this._sections[name] = options.fn(this);
+        return null;
+      },
+    },
+  })
+);
 app.set('view engine', 'hbs');
 
 // configure public to serve static files
