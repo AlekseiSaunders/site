@@ -9,6 +9,7 @@
   "description": "travel site",
   "main": "meadowlark.js",
   "devDependencies": {
+    "eslint": "^8.22.0",
     "jest": "^28.1.3",
     "nodemon": "^2.0.19",
     "portfinder": "^1.0.32",
@@ -16,7 +17,8 @@
   },
   "scripts": {
     "test": "jest",
-    "dev": "nodemon meadowlark.js"
+    "dev": "nodemon meadowlark.js",
+    "lint": "eslint meadowlark.js lib"
   },
   "author": "Aleksei Saunders",
   "license": "MIT"
