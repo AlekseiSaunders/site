@@ -1,5 +1,5 @@
 const express = require('express');
-const expressHandlebars = require('express-handlebars');
+const { engine } = require('express-handlebars');
 const bodyParser = require('body-parser');
 
 const handlers = require('./lib/handlers');
@@ -10,8 +10,8 @@ const app = express();
 // configure handlebars as view engine
 // add helper to allow handlebars to accept sections
 app.engine(
-  'handlebars',
-  expressHandlebars({
+  '.hbs',
+  engine({
     defaultLayout: 'main',
     extname: '.hbs',
     helpers: {
@@ -23,7 +23,8 @@ app.engine(
     },
   })
 );
-app.set('view-engine', 'handlebars');
+app.set('view engine', '.hbs');
+app.set('views', './views');
 
 // configure bodyparser to reader request.body
 // utilizing urlencoding and json
