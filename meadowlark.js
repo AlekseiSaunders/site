@@ -1,7 +1,6 @@
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
-const multiparty = require('multiparty');
 
 const handlers = require('./lib/handlers');
 const weatherMiddleware = require('./lib/middleware/weather');
@@ -18,7 +17,7 @@ app.engine(
     helpers: {
       section: function (name, options) {
         if (!this._sections) this._sections = {};
-        this._sections[name] = option.fn(this);
+        this._sections[name] = options.fn(this);
         return null;
       },
     },
