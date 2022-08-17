@@ -1,7 +1,7 @@
 const express = require('express');
 const { engine } = require('express-handlebars');
 const bodyParser = require('body-parser');
-
+const multiparty = require('multiparty');
 const handlers = require('./lib/handlers');
 const weatherMiddleware = require('./lib/middleware/weather');
 
@@ -51,6 +51,21 @@ app.get('/newsletter-signup/thank-you', handlers.newsletterSignupThankYou);
 // set routes for fetch/JSON form submission (preferred)
 app.get('/newsletter', handlers.newsletter);
 app.post('/api/newsletter-signup', handlers.api.newsletterSignup);
+
+// set routes for vacation photo contest form
+app.get('/contest/vacation-photo', handlers.vacationPhotoContest);
+
+app.post('/contest/vacation-photo/:year/:month', (request, response) => {
+  const form = new multiparty.Form();
+  form.parse(request, (err, fields, files) => {
+    if (err) return response.status(500).send({ error: err.message });
+    handlers.vacationPhotoContestProcess(request, response, fields, files);
+  });
+});
+app.get(
+  '/contest/vacation-photo-thank-you',
+  handlers.vacationPhotoContestProcessThankYou
+);
 
 // set routes for 404-Not Found and 500-Server Error
 app.use(handlers.notFound);
